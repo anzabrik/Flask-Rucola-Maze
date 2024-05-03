@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+Revenue & Profit
+{% endblock %}
+{% block content %}
+
+<div class="h1">
+    <h1>Revenue & Profit</h1>
+</div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p class="message">{{ message }}</p>
+{% endfor %}
+{% else %}
+<p class="small-text">You're logged in as {{ current_user.username }}</p>
+{% endif %}
+{% endwith %}
+
+<table class="table table-bordered w-auto">
+    <tr>
+        <td>Total revenue (sum of all recorded purchases)</td>
+        <td>${{ revenue }}</td>
+    </tr>
+    <tr>
+        <td>Total cost of purchases (sum of cost of all ingredients used)</td>
+        <td>${{ cost_of_ingredients }}</td>
+    </tr>
+    <tr>
+        <td>Profit (revenue - cost)</td>
+        <td>${{ profit }}</td>
+    </tr>
+</table>
+
+{% endblock %}

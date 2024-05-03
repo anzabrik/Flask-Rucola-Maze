@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit Purchase
+{% endblock %}
+
+{% block content %}
+
+<div class="h1">
+    <h1>Edit Purchase</h1>
+
+</div>
+<p class="small-text">You're logged in as {{ current_user.username }}</p>
+<p>You're going to edit purchase #{{ purchase.id }}: {{menu_item}}
+    made at {{ purchase.time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+{% if available_menu_items %}
+<form method="post" action="{{ url_for('inventory.purchase_edit', purchase_id=purchase.id) }}">
+    {{ form.csrf_token }}
+    <table>
+        <tr>
+            <td>{{ form.available_menu_items.label }}</td>
+            <td>{{ form.available_menu_items() }}</td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit" class="btn btn-primary btn-lg" class="form-control">
+</form>
+{% else %}
+<p>Sorry, there're no available items on our menu at the moments, so this purchase has to stay as it is.</p>
+{% endif %}
+{% endblock %}

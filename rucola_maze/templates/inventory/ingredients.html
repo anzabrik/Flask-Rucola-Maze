@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}
+Ingredients
+{% endblock %}
+
+{% block content %}
+
+<div class="h1">
+    <h1>Ingredients</h1>
+</div>
+<p class="small-text">You're logged in as {{ current_user.username }}</p>
+<div><a class="btn btn-primary btn-lg right" href="{{ url_for('inventory.ingredient_new') }}" role="button">Add
+        Ingredient</a>
+</div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p class="message">{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Name</th>
+            <th>Quantity available</th>
+            <th>Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    {% for ingredient in ingredients %}
+    <tr>
+        <td>{{ ingredient.name }}</td>
+        <td>{{ ingredient.quantity_available }}</td>
+        <td>${{ ingredient.unit_price_dollars }}.{{ ingredient.unit_price_cents }} per {{ ingredient.unit }}</td>
+        <td><a href="{{ url_for('inventory.ingredient_edit', ingredient_id=ingredient.id) }}"><button
+                    class="btn btn-primary">Edit</button></a>
+        </td>
+        <td><a href="{{ url_for('inventory.ingredient_delete', ingredient_id=ingredient.id) }}">❌</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+Delete Ingredient
+{% endblock %}
+{% block content %}
+<div class="h1">
+    <h1>Delete Ingredient</h1>
+</div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p class="message">{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<p class="small-text">You're logged in as {{ current_user.username }}</p>
+<form method="post" action="{{ url_for('inventory.ingredient_delete', ingredient_id=ingredient.id) }}">
+
+    <p class="error">Are you sure you want to delete "{{ ingredient }}" from the ingredient list?</p>
+    <input type="submit" name="yes" value="Yes" class="btn btn-danger">
+    <input type="submit" name="no" value="No" class="btn btn-primary">
+</form>
+{% endblock %}

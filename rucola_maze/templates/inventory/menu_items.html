@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+Menu Items
+{% endblock %}
+
+{% block content %}
+<div class="h1">
+    <h1>Menu Items</h1>
+</div>
+<div><a class="btn btn-primary btn-lg right" href="{{ url_for('inventory.menu_item_new') }}" role="button">Add Menu
+        Item</a>
+</div>
+<p class="small-text">You're logged in as {{ current_user.username }}</p>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p class="message">{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Available</th>
+            <th>Recipe Requirements</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    {% for menu_item in menu_items %}
+    <tr>
+        <td>{{ menu_item.title }}</td>
+        {# <td>${{ "%.2f"|format(menu_item.price) }}</td> #}
+        <td>${{ menu_item.price_dollars }}.{{ menu_item.price_cents }}</td>
+        {% if menu_item in available_menu_items %}
+        <td>YES</td>
+        {% else %}
+        <td>NO</td>
+        {% endif %}
+        <td>
+            <ul>
+                {% for recipe_requirement in menu_item.in_recipe_requirements.all() %}
+                <li>{{ recipe_requirement }}</li>
+                {% endfor %}
+            </ul>
+        </td>
+        <td><a href="{{ url_for('inventory.menu_item_edit', menu_item_id=menu_item.id) }}"><button
+                    class="btn btn-primary">Edit</button></a>
+        </td>
+        <td><a href="{{ url_for('inventory.menu_item_delete', menu_item_id=menu_item.id) }}">❌</td>
+    </tr>
+    <p>{{ m }}</p>
+    {% endfor %}
+
+</table>
+{% endblock %}

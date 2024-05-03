@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+Purchases
+{% endblock %}
+
+{% block content %}
+<div class="h1">
+    <h1>Purchases</h1>
+</div>
+<p class="small-text">You're logged in as {{ current_user.username }}</p>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p class="message">{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<div><a class="btn btn-primary btn-lg right" href="{{ url_for('inventory.purchase_new') }}" role="button">Add
+        Purchase</a>
+</div>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>Menu item</th>
+            <th>Time</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    {% for purchase in purchases %}
+    <tr>
+        <td>{{ purchase.menu_item }}</td>
+        <td>{{ purchase.time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        <td><a href="{{ url_for('inventory.purchase_delete', purchase_id = purchase.id) }}">❌</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}

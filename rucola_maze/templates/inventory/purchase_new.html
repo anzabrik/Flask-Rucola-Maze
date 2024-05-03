@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+New Purchase
+{% endblock %}
+
+{% block content %}
+<div class="h1">
+    <h1>New Purchase</h1>
+</div>
+<p class="small-text">You're logged in as {{ current_user.username }}</p>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p class="message">{{ message }}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% if available_menu_items %}
+
+<form method="post" action="{{ url_for('inventory.purchase_new') }}">
+    {{ form.csrf_token }}
+    <br>
+
+    {{ form.available_menu_items.label }}
+    {{ form.available_menu_items() }}
+
+    <br>
+    <br>
+    <input type="submit" value="Submit" class="btn btn-primary btn-lg" class="form-control">
+</form>
+
+{% else %}
+<p>Sorry, it looks like there're no available items on our menu at the moment! Please contact our support team.</p>
+{% endif %}
+
+{% endblock %}
