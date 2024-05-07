@@ -23,7 +23,7 @@ The app can be broken down into two sub-apps, each taking form of a separate blu
 
 - 'inventory', which performs all the operations with ingredients, menu items, and purchases. URLs have no prefix as this sub-app is more important.
 - 'auth', which is responsible for user authorization and authentication. URLs for this blueprint start with 'auth'.
-Each sub-app has a separate views file ('inventory.py' and 'auth.py') and a separate template folder. The sub-apps are brought together via the '__init__.py' file, which contains an app factory function.
+Each sub-app has a separate views file ('inventory.py' and 'auth.py') and a separate template folder. The sub-apps are brought together via the '\_\_init\_\_.py' file, which contains an app factory function.
 
 ## Models
 
